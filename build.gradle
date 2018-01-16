@@ -1,0 +1,50 @@
+System.setProperty("file.encoding", "UTF-8")
+
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "${System.properties['user.home']}/.m2/repository/"
+        }
+    }
+
+    dependencies {
+    }
+}
+
+
+
+allprojects {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven {
+            url "${System.properties['user.home']}/.m2/repository/"
+        }
+    }
+
+    apply plugin: 'java'
+
+    group = 'Buerge-Thesis'
+
+    version = '0.1'
+
+    dependencies {
+        testCompile "junit:junit:4.12"
+    }
+}
+
+configure([rootProject]) {
+    apply plugin: 'java'
+    dependencies {
+        testCompile 'junit:junit:4.12'
+    }
+
+    test {
+        jvmArgs = ['-Dglass.platform=Monocle', '-Dmonocle.platform=Headless']
+    }
+
+    apply plugin: 'application'
+    mainClassName = 'com.in.pom.FXMLStarter'
+}
