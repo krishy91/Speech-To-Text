@@ -15,7 +15,7 @@ public class FXMLStarter extends Application{
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("views/main.fxml"));
-        Scene scene = new Scene(root, 1280, 720);
+        Scene scene = new Scene(root, 440, 800);
         stage.setTitle("Speech-To-Text");
         stage.setScene(scene);
         stage.show();
