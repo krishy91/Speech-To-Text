@@ -2,27 +2,44 @@ package com.in.bruegge.util;
 
 import javax.sound.sampled.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class AudioRecorder {
 
     static AudioRecorder MANAGER;
 
-    private AudioRecorder(){
+    File wavFile;
 
+    private AudioRecorder(){
+        try{
+            wavFile = new File( "recording.wav");
+
+            if (wavFile.createNewFile()){
+                System.out.println("File is created!");
+            }else{
+                System.out.println("File already exists.");
+            }
+
+        }catch(IOException e){
+            System.out.println("Could not find");
+        }
     }
 
     public static AudioRecorder getRecorder(){
         if(MANAGER == null){
             MANAGER = new AudioRecorder();
         }
+
+
         return MANAGER;
     }
 
     AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
 
     // path of the wav file
-    File wavFile = new File("/home/krishna/Documents/Thesis_Data/custom/recording.wav");
+
+
 
     TargetDataLine line;
 
