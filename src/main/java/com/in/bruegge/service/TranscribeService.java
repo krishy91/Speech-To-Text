@@ -1,9 +1,11 @@
 package com.in.bruegge.service;
 
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigException;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.ListenableFuture;
 import org.asynchttpclient.Response;
-
+import com.typesafe.config.ConfigFactory;
 import java.awt.*;
 import java.io.File;
 import java.util.concurrent.Future;
@@ -22,6 +24,17 @@ public class TranscribeService {
 
     private TranscribeService(){
          asyncHttpClient = asyncHttpClient();
+         try{
+             Config conf   = ConfigFactory.load();
+             String server = conf.getString("app.server");
+             SERVER_URL = server + "/transcribe";
+             //System.out.println("Got some config");
+
+         }catch(ConfigException e){
+             e.printStackTrace();
+             //System.out.println("No custom config");
+         }
+
     }
 
     public ListenableFuture<Response> transcribeAudio(File wavFile){

@@ -31,10 +31,14 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
 import org.asynchttpclient.ListenableFuture;
 import org.asynchttpclient.Response;
+import javafx.concurrent.Task;
 
 public class MainController {
     @FXML
     private Label transcribedText;
+
+    @FXML
+    private ImageView recordImage;
 
     @FXML
     private JFXSpinner blueSpinner;
@@ -63,7 +67,37 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        feedbackImage.setImage(new Image(getClass().getClassLoader().getResource("images/feedback.png").toString()));
+
+
+        Image feedbackImageObj   = new Image(getClass().getClassLoader().getResource("images/feedback.png").toString());
+        Image startRecordingImage = new Image(getClass().getClassLoader().getResource("images/microphone_1.png").toString());
+        Image stopRecordingImage = new Image(getClass().getClassLoader().getResource("images/microphone_2.png").toString());
+
+        feedbackImage.setImage(feedbackImageObj);
+        recordImage.setImage(startRecordingImage);
+
+        recordImage.setOnMousePressed(x -> {
+            recordImage.setImage(stopRecordingImage);
+
+            Task<Integer> task = new Task<Integer>() {
+                @Override protected Integer call() throws Exception {
+                    audioRecorder.startRecording();
+                    return 0;
+                }
+            };
+
+            Thread audioThread = new Thread(task);
+            audioThread.setDaemon(true);
+
+            audioThread.start();
+
+        });
+
+        recordImage.setOnMouseReleased(y -> {
+            recordImage.setImage(startRecordingImage);
+            audioRecorder.stopRecording();
+        });
+
     }
 
     @FXML protected void handleRecordButtonAction(ActionEvent event) {

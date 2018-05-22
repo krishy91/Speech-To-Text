@@ -25,8 +25,10 @@
          <children>
               <VBox alignment="CENTER" spacing="20.0">
                   <children>
-                      <JFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleRecordButtonAction" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: rgb(77,102,204);;" text="Record" textFill="WHITE" />
-                      <JFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleTranscribeButtonAction" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: rgb(77,102,204);;" text="Transcribe" textFill="WHITE" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Hold to record" wrapText="true" />
+                  <ImageView fx:id="recordImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
+                     <!-- <JFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleRecordButtonAction" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: rgb(77,102,204);;" text="Record" textFill="WHITE" /> -->
+                      <JFXButton buttonType="RAISED" mnemonicParsing="false" onAction="#handleTranscribeButtonAction" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: rgb(77,102,204);;" text="Transcribe" textFill="WHITE" />
                   <StackPane prefHeight="100.0" prefWidth="185.0">
                      <children>
                          <JFXSpinner fx:id="blueSpinner" radius="20" styleClass="materialDesign-blue" visible="false" />
